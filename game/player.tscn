@@ -1,0 +1,66 @@
+[gd_scene load_steps=7 format=3 uid="uid://bvctpmhwxeosb"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_iyrcx"]
+[ext_resource type="Texture2D" uid="uid://25yd8nubeb0q" path="res://tileset.png" id="1_y1mif"]
+[ext_resource type="Texture2D" uid="uid://dk58ihfoyctg8" path="res://godot_bites.png" id="3_w7jbp"]
+
+[sub_resource type="Animation" id="Animation_pu2f8"]
+resource_name = "move"
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 2, 1]
+}
+
+[sub_resource type="Animation" id="Animation_aed0v"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("icon:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kuka8"]
+_data = {
+"RESET": SubResource("Animation_aed0v"),
+"move": SubResource("Animation_pu2f8")
+}
+
+[node name="player" type="Node2D"]
+script = ExtResource("1_iyrcx")
+metadata/_edit_lock_ = true
+
+[node name="godot" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("1_y1mif")
+region_enabled = true
+region_rect = Rect2(32, 0, 16, 16)
+metadata/_edit_lock_ = true
+
+[node name="anim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_kuka8")
+}
+autoplay = "RESET"
+
+[node name="icon" type="Sprite2D" parent="."]
+texture_filter = 2
+scale = Vector2(0.0266667, 0.0266667)
+texture = ExtResource("3_w7jbp")
+hframes = 4
